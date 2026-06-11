@@ -8,5 +8,11 @@ export default defineConfig({
   plugins: [react(), mkcert()],
   server: {
     host: true,
+    // Proxy backend calls server-side so the https frontend can reach the http
+    // FastAPI backend (avoids mixed-content blocking) from any device, including phones
+    proxy: {
+      '/api': 'http://127.0.0.1:8000',
+      '/transcribe': 'http://127.0.0.1:8000',
+    },
   },
 });

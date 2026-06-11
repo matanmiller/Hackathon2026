@@ -9,8 +9,8 @@ export async function sendMessageToAgent(message: string): Promise<string> {
   }
 
   try {
-    // פנייה לשרת הפייתון המקומי שהרמנו בפורט 8000
-    const response = await fetch('http://127.0.0.1:8000/api/chat', {
+    // פנייה לשרת הפייתון המקומי דרך ה-proxy של Vite (עובד גם מהטלפון, ללא בעיית mixed-content)
+    const response = await fetch('/api/chat', {
       method: 'POST',
       headers: {
         'Content-Type': 'application/json',
