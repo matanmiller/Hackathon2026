@@ -1,3 +1,5 @@
+import json
+import os
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
@@ -16,31 +18,33 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# 1. מאגר המידע שלך - הוספתי כאן את המידע על חנק כדי שהמודל באמת ידע לענות עליו!
-my_knowledge_base = [
-    "אם אדם נחנק בקש ממנו להשתעל.",
-    "כדי לאפס את הסיסמה, יש לנווט להגדרות > אבטחה וללחוץ על 'איפוס'.",
-    "האפליקציה שלנו משתמשת בבסיס נתונים מסוג PostgreSQL שמארח באופן מקומי.",
-    "במקרה של חנק (תמרון היימליך): ודא שהאדם משתעל. אם אינו נושם, בצע לחיצות בבטן העליונה כלפי מעלה ומאחוריו עד שהחסימה תשתחרר."
-]
+# 1. טעינת מאגר המידע מקובץ ה-JSON החיצוני
+try:
+    json_path = os.path.join(os.path.dirname(__file__), "knowledge_base.json")
+    with open(json_path, "r", encoding="utf-8") as f:
+        my_knowledge_base = json.load(f)
+    print(f"Successfully loaded {len(my_knowledge_base)} guidelines from JSON file!")
+except Exception as e:
+    print(f"ERROR LOADING JSON FILE: {str(e)}")
+    # רשת ביטחון למקרה שהקובץ חסר או פגום
+    my_knowledge_base = ["במקרה של אדם שנחנק לידך בקש ממנו להשתעל מיד"]
+
 documents = [Document(page_content=text) for text in my_knowledge_base]
 
-# אתחול המודלים
+# אתחול המודלים המקומיים של Ollama
 try:
     print("Loading embedding model...")
     local_embeddings = OllamaEmbeddings(model="nomic-embed-text")
     
     print("Building vector database...")
     vectorstore = Chroma.from_documents(documents=documents, embedding=local_embeddings)
-    # נגדיר את הציון (Score) המינימלי כדי לסנן מידע לא קשור
-    retriever = vectorstore.as_retriever(search_kwargs={"k": 1})
     
     print("Loading tiny LLM model...")
     llm = Ollama(model="qwen2.5:0.5b", temperature=0.0, num_predict=80)
     print("System successfully loaded!")
 except Exception as e:
     print(f"CRITICAL ERROR DURING INITIALIZATION: {str(e)}")
-    retriever = None
+    vectorstore = None
     llm = None
 
 class QueryRequest(BaseModel):
@@ -48,31 +52,27 @@ class QueryRequest(BaseModel):
 
 @app.post("/api/chat")
 async def ask_chatbot(payload: QueryRequest):
-    if llm is None or retriever is None:
+    if vectorstore is None:
         return {"answer": "מערכת ה-AI לא אותחלה כראוי ברקע."}
         
     try:
-        # 1. שליפת פיסת המידע הכי קרובה יחד עם ציון הדמיון שלה
         question = payload.question.strip()
+        
+        # שלב 1: שליפת המשפט הספציפי (k=1)
         matched_docs = vectorstore.similarity_search_with_score(question, k=1)
         
-        # אם מסד הנתונים ריק או שאין שום קשר למידע הקיים שלנו
-        # (בכרומה, ככל שהציון נמוך יותר, המידע קרוב יותר. מעל 1.2 זה בדרך כלל ניחוש מוחלט)
-        if not matched_docs or matched_docs[0][1] > 1.2:
+        # סינון לפי רף הציון המקומי של המודל
+        if not matched_docs or matched_docs[0][1] > 300.0:
             return {"answer": "אינני יודע את התשובה מתוך המידע שסופק."}
             
         context = matched_docs[0][0].page_content
+        
+        # הדפסת דיבאג לטרמינל
+        print(f"User asked: '{question}' | Best match: '{context}' | Score: {matched_docs[0][1]}")
 
-        # 2. פרומפט פשוט ומזוקק שמתאים למודל של 390MB (בלי תגיות מערכת מסובכות)
-        prompt = f"""דבר רק עברית. תענה על השאלה בקצרה רק לפי המידע המצורף. אם השאלה לא קשורה למידע, תגיד "אינני יודע".
-
-מידע: {context}
-שאלה: {question}
-תשובה:"""
-
-        # 3. קבלת התשובה במהירות הבזק
-        response_text = llm.invoke(prompt).strip()
-        return {"answer": response_text}
+        # שלב 2: החזרת התשובה הספציפית המדויקת ישירות ל-React
+        return {"answer": context}
         
     except Exception as e:
+        print(f"Error in chat endpoint: {str(e)}")
         return {"answer": f"שגיאה בעיבוד הבקשה: {str(e)}"}
