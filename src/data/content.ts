@@ -216,7 +216,7 @@ export const LESSONS: Lesson[] = [
   {
     id: 'choking',
     category: 'medical',
-    title: 'חנק (תמרון היימליך)',
+    title: 'חנק',
     subtitle: 'זיהוי וטיפול בחסימת דרכי נשימה',
     icon: 'choking',
     pages: CHOKING_PAGES,
