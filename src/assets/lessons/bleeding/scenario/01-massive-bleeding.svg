@@ -1,0 +1,10 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 240 160">
+  <rect width="240" height="160" rx="24" fill="#fef2f2"/>
+  <!-- blood pool -->
+  <ellipse cx="185" cy="102" rx="52" ry="34" fill="#dc2626"/>
+  <ellipse cx="58" cy="136" rx="14" ry="9" fill="#dc2626" opacity="0.7"/>
+  <!-- leg -->
+  <rect x="10" y="50" width="135" height="55" rx="24" fill="#64748b" stroke="#1e293b" stroke-width="5"/>
+  <!-- wound -->
+  <rect x="128" y="54" width="40" height="47" rx="10" fill="#ef4444" stroke="#1e293b" stroke-width="5"/>
+</svg>

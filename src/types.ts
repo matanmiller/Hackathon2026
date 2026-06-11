@@ -19,6 +19,31 @@ export interface LessonStep {
 
 export type LessonIcon = 'choking' | 'bleeding';
 
+export interface LessonPageItem {
+  /** Optional bold inline label, e.g. "חסימה חלקית" */
+  label?: string;
+  text: string;
+  image?: string;
+}
+
+export interface LessonPage {
+  header: string;
+  items: LessonPageItem[];
+}
+
+export interface ScenarioOption {
+  id: string;
+  text: string;
+  correct?: boolean;
+}
+
+export interface ScenarioPage {
+  /** Image showing the current state of the emergency */
+  image: string;
+  /** Three possible actions, exactly one of which is correct */
+  options: ScenarioOption[];
+}
+
 export interface Lesson {
   id: string;
   category: CategoryId;
@@ -26,6 +51,10 @@ export interface Lesson {
   subtitle: string;
   icon: LessonIcon;
   steps: LessonStep[];
+  /** Optional Duolingo-style paginated walkthrough */
+  pages?: LessonPage[];
+  /** Optional timed, image-driven emergency scenario quiz */
+  scenario?: ScenarioPage[];
 }
 
 export interface QuizOption {
@@ -35,6 +64,8 @@ export interface QuizOption {
 
 export interface QuizQuestion {
   id: string;
+  /** Lesson this question belongs to, used for the per-lesson quiz */
+  lessonId: string;
   question: string;
   options: QuizOption[];
   correctOptionId: string;

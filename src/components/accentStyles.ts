@@ -16,6 +16,8 @@ interface AccentStyle {
   bgSoft: string;
   /** Solid border + background for a checked checkbox */
   solid: string;
+  /** Solid colored CTA button background + active state */
+  button: string;
 }
 
 export const ACCENT_STYLES: Record<AccentColor, AccentStyle> = {
@@ -28,6 +30,7 @@ export const ACCENT_STYLES: Record<AccentColor, AccentStyle> = {
     border: 'border-red-300',
     bgSoft: 'bg-red-50',
     solid: 'border-red-500 bg-red-500',
+    button: 'bg-red-500 active:bg-red-600',
   },
   sky: {
     tile: 'bg-gradient-to-br from-sky-500/15 via-sky-500/5 to-transparent',
@@ -38,6 +41,7 @@ export const ACCENT_STYLES: Record<AccentColor, AccentStyle> = {
     border: 'border-sky-300',
     bgSoft: 'bg-sky-50',
     solid: 'border-sky-500 bg-sky-500',
+    button: 'bg-sky-500 active:bg-sky-600',
   },
   amber: {
     tile: 'bg-gradient-to-br from-amber-500/15 via-amber-500/5 to-transparent',
@@ -48,6 +52,7 @@ export const ACCENT_STYLES: Record<AccentColor, AccentStyle> = {
     border: 'border-amber-300',
     bgSoft: 'bg-amber-50',
     solid: 'border-amber-500 bg-amber-500',
+    button: 'bg-amber-500 active:bg-amber-600',
   },
   violet: {
     tile: 'bg-gradient-to-br from-violet-500/15 via-violet-500/5 to-transparent',
@@ -58,5 +63,6 @@ export const ACCENT_STYLES: Record<AccentColor, AccentStyle> = {
     border: 'border-violet-300',
     bgSoft: 'bg-violet-50',
     solid: 'border-violet-500 bg-violet-500',
+    button: 'bg-violet-500 active:bg-violet-600',
   },
 };
