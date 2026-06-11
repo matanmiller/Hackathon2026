@@ -1,10 +1,17 @@
 import { useState } from 'react';
-import { CATEGORIES, LESSONS } from '../data/content';
+import { CATEGORIES, LESSONS, QUIZ_QUESTIONS } from '../data/content';
 import CategoryCard from './CategoryCard';
+import LessonChoice from './LessonChoice';
 import LessonDetail from './LessonDetail';
+import LessonPager from './LessonPager';
+import LessonQuiz from './LessonQuiz';
+import LessonScenario from './LessonScenario';
 import LessonSquareCard from './LessonSquareCard';
+import RotatingQuote from './RotatingQuote';
 import { ArrowIcon, ClockIcon, SirenIcon } from './icons';
 import type { CategoryId } from '../types';
+
+type LessonView = 'choice' | 'lesson' | 'quiz';
 
 interface LearnTabProps {
   onLaunchAgent: () => void;
@@ -13,21 +20,72 @@ interface LearnTabProps {
 export default function LearnTab({ onLaunchAgent }: LearnTabProps) {
   const [selectedCategoryId, setSelectedCategoryId] = useState<CategoryId | null>(null);
   const [selectedLessonId, setSelectedLessonId] = useState<string | null>(null);
+  const [lessonView, setLessonView] = useState<LessonView>('choice');
   const [completedSteps, setCompletedSteps] = useState<Record<string, boolean>>({});
 
   const toggleStep = (stepId: string) => {
     setCompletedSteps((prev) => ({ ...prev, [stepId]: !prev[stepId] }));
   };
 
+  const selectLesson = (lessonId: string) => {
+    setSelectedLessonId(lessonId);
+    setLessonView('choice');
+  };
+
   const selectedLesson = LESSONS.find((lesson) => lesson.id === selectedLessonId);
   if (selectedLesson) {
     const lessonCategory = CATEGORIES.find((category) => category.id === selectedLesson.category);
+    const accent = lessonCategory?.accent ?? 'red';
+    const lessonQuizQuestions = QUIZ_QUESTIONS.filter((question) => question.lessonId === selectedLesson.id);
+    const completedCount = selectedLesson.steps.filter((step) => completedSteps[step.id]).length;
+
+    if (lessonView === 'quiz') {
+      if (selectedLesson.scenario) {
+        return <LessonScenario pages={selectedLesson.scenario} accent={accent} onBack={() => setLessonView('choice')} />;
+      }
+      return <LessonQuiz questions={lessonQuizQuestions} onBack={() => setLessonView('choice')} />;
+    }
+
+    if (lessonView === 'lesson') {
+      if (selectedLesson.pages) {
+        return (
+          <LessonPager
+            pages={selectedLesson.pages}
+            accent={accent}
+            onBack={() => setLessonView('choice')}
+            onComplete={() => {
+              setCompletedSteps((prev) => {
+                const next = { ...prev };
+                for (const step of selectedLesson.steps) {
+                  next[step.id] = true;
+                }
+                return next;
+              });
+              setLessonView('choice');
+            }}
+          />
+        );
+      }
+
+      return (
+        <LessonDetail
+          lesson={selectedLesson}
+          accent={accent}
+          completedSteps={completedSteps}
+          onToggleStep={toggleStep}
+          onBack={() => setLessonView('choice')}
+        />
+      );
+    }
+
     return (
-      <LessonDetail
+      <LessonChoice
         lesson={selectedLesson}
-        accent={lessonCategory?.accent ?? 'red'}
-        completedSteps={completedSteps}
-        onToggleStep={toggleStep}
+        accent={accent}
+        completedCount={completedCount}
+        hasQuiz={lessonQuizQuestions.length > 0 || !!selectedLesson.scenario}
+        onSelectLesson={() => setLessonView('lesson')}
+        onSelectQuiz={() => setLessonView('quiz')}
         onBack={() => setSelectedLessonId(null)}
       />
     );
@@ -63,7 +121,7 @@ export default function LearnTab({ onLaunchAgent }: LearnTabProps) {
                   lesson={lesson}
                   accent={selectedCategory.accent}
                   completedCount={completedCount}
-                  onSelect={() => setSelectedLessonId(lesson.id)}
+                  onSelect={() => selectLesson(lesson.id)}
                 />
               );
             })}
@@ -115,9 +173,11 @@ export default function LearnTab({ onLaunchAgent }: LearnTabProps) {
         ))}
       </div>
 
-      <p className="pb-2 text-center text-[11px] leading-relaxed text-slate-400">
+      <p className="text-center text-[11px] leading-relaxed text-slate-400">
         התוכן מיועד להדרכה ואימון בלבד ואינו מהווה תחליף לטיפול רפואי מקצועי. במקרה חירום אמיתי חייגו 101.
       </p>
+
+      <RotatingQuote />
     </div>
   );
 }
