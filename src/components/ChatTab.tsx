@@ -2,8 +2,10 @@ import { useEffect, useRef, useState } from 'react';
 import type { FormEvent } from 'react';
 import type { ChatMessage } from '../types';
 import { sendMessageToAgent } from '../services/geminiService';
+import { useVoiceRecorder } from '../hooks/useVoiceRecorder';
 import ChatBubble from './ChatBubble';
-import { BotIcon, LoaderIcon, SendIcon } from './icons';
+import MicPermissionPrompt from './MicPermissionPrompt';
+import { BotIcon, LoaderIcon, MicrophoneIcon, SendIcon, StopCircleIcon } from './icons';
 
 const INITIAL_MESSAGE: ChatMessage = {
   id: 'agent-welcome',
@@ -44,8 +46,22 @@ export default function ChatTab() {
     void handleSend();
   };
 
+  // ההקלטה הקולית רק ממלאת את שדה הקלט הקיים; שליחת ההודעה עדיין דורשת לחיצה/אנטר כרגיל
+  const { state: voiceState, errorMessage: voiceError, startRecording, stopRecording } = useVoiceRecorder({
+    onTranscribed: (text) => setInput(text),
+  });
+
+  const handleMicClick = () => {
+    if (voiceState === 'recording') {
+      stopRecording();
+    } else if (voiceState !== 'uploading') {
+      void startRecording();
+    }
+  };
+
   return (
-    <div className="flex h-full min-h-0 flex-col">
+    <div className="relative flex h-full min-h-0 flex-col">
+      <MicPermissionPrompt />
       <div ref={scrollRef} className="no-scrollbar flex-1 overflow-y-auto overscroll-contain px-4 py-4">
         <div className="flex flex-col gap-3">
           {messages.map((message) => (
@@ -70,6 +86,21 @@ export default function ChatTab() {
         onSubmit={handleSubmit}
         className="shrink-0 border-t border-slate-200 bg-white/95 px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur"
       >
+        {voiceState === 'recording' && (
+          <div className="mb-2 flex items-center gap-2 px-1 text-xs text-red-500">
+            <span className="h-2 w-2 animate-pulse rounded-full bg-red-500" />
+            <span>מקליט... לחץ על הכפתור לעצירה</span>
+          </div>
+        )}
+        {voiceState === 'uploading' && (
+          <div className="mb-2 flex items-center gap-2 px-1 text-xs text-slate-500">
+            <LoaderIcon className="h-3 w-3 animate-spin" />
+            <span>מתמלל את ההקלטה...</span>
+          </div>
+        )}
+        {voiceState === 'error' && voiceError && (
+          <div className="mb-2 px-1 text-xs text-red-500">{voiceError}</div>
+        )}
         <div className="flex items-center gap-2">
           <input
             type="text"
@@ -78,6 +109,25 @@ export default function ChatTab() {
             placeholder="הקלד הודעת חירום כאן..."
             className="flex-1 rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
+          <button
+            type="button"
+            onClick={handleMicClick}
+            disabled={voiceState === 'uploading'}
+            className={`flex h-11 w-11 shrink-0 items-center justify-center rounded-full transition-colors disabled:opacity-40 ${
+              voiceState === 'recording'
+                ? 'bg-red-500 text-white'
+                : 'bg-slate-100 text-slate-600 hover:bg-slate-200'
+            }`}
+            aria-label={voiceState === 'recording' ? 'עצור הקלטה' : 'הקלטת הודעה קולית'}
+          >
+            {voiceState === 'uploading' ? (
+              <LoaderIcon className="h-5 w-5 animate-spin" />
+            ) : voiceState === 'recording' ? (
+              <StopCircleIcon className="h-5 w-5" />
+            ) : (
+              <MicrophoneIcon className="h-5 w-5" />
+            )}
+          </button>
           <button
             type="submit"
             disabled={!input.trim() || isLoading}

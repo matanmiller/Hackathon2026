@@ -169,3 +169,19 @@ export const ClockIcon = (props: IconProps) => (
     <path d="M12 6v6l4 2" />
   </svg>
 );
+
+export const MicrophoneIcon = (props: IconProps) => (
+  <svg {...base} {...props}>
+    <rect x="9" y="2" width="6" height="12" rx="3" />
+    <path d="M5 10a7 7 0 0 0 14 0" />
+    <path d="M12 19v3" />
+    <path d="M8 22h8" />
+  </svg>
+);
+
+export const StopCircleIcon = (props: IconProps) => (
+  <svg {...base} {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <rect x="9" y="9" width="6" height="6" rx="1" />
+  </svg>
+);

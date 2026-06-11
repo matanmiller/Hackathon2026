@@ -1,0 +1,8 @@
+fastapi
+uvicorn
+pydantic
+langchain-community
+langchain-chroma
+langchain-core
+python-multipart
+faster-whisper

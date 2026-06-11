@@ -1,12 +1,15 @@
+import io
 import json
 import os
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import JSONResponse
 from pydantic import BaseModel
 from langchain_community.llms import Ollama
 from langchain_community.embeddings import OllamaEmbeddings
 from langchain_chroma import Chroma
 from langchain_core.documents import Document
+from faster_whisper import WhisperModel
 
 app = FastAPI()
 
@@ -47,6 +50,15 @@ except Exception as e:
     vectorstore = None
     llm = None
 
+# מודל זיהוי דיבור מקומי (Whisper) להמרת הקלטות קוליות לטקסט
+try:
+    print("Loading speech-to-text model...")
+    whisper_model = WhisperModel("tiny", device="cpu", compute_type="int8")
+    print("Speech-to-text model loaded!")
+except Exception as e:
+    print(f"ERROR LOADING WHISPER MODEL: {str(e)}")
+    whisper_model = None
+
 class QueryRequest(BaseModel):
     question: str
 
@@ -76,3 +88,25 @@ async def ask_chatbot(payload: QueryRequest):
     except Exception as e:
         print(f"Error in chat endpoint: {str(e)}")
         return {"answer": f"שגיאה בעיבוד הבקשה: {str(e)}"}
+
+
+@app.post("/transcribe")
+async def transcribe_audio(audio: UploadFile = File(...)):
+    if whisper_model is None:
+        return JSONResponse(status_code=503, content={"text": "", "error": "מודל זיהוי הדיבור לא נטען כראוי בשרת."})
+
+    try:
+        audio_bytes = await audio.read()
+        if not audio_bytes:
+            return JSONResponse(status_code=400, content={"text": "", "error": "לא התקבל קובץ שמע."})
+
+        # faster-whisper יודע לקרוא ישירות מ-buffer בזיכרון (ללא צורך בשמירת קובץ זמני)
+        audio_buffer = io.BytesIO(audio_bytes)
+        segments, _ = whisper_model.transcribe(audio_buffer, language="he")
+        text = " ".join(segment.text.strip() for segment in segments).strip()
+
+        return {"text": text}
+
+    except Exception as e:
+        print(f"Error in transcribe endpoint: {str(e)}")
+        return JSONResponse(status_code=500, content={"text": "", "error": f"שגיאה בעיבוד השמע: {str(e)}"})
