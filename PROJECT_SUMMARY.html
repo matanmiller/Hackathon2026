@@ -1,0 +1,566 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<title>Emergency Response (Ezra Rishona AI) — Project Summary</title>
+<style>
+  @page { size: A4; margin: 18mm 16mm; }
+  * { box-sizing: border-box; }
+  body {
+    font-family: -apple-system, "Helvetica Neue", Arial, "Segoe UI", sans-serif;
+    color: #1e293b;
+    line-height: 1.55;
+    font-size: 12px;
+  }
+  .cover {
+    height: 247mm;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    page-break-after: always;
+    background: linear-gradient(160deg, #ecfdf5 0%, #ffffff 50%, #eff6ff 100%);
+    border-radius: 12px;
+  }
+  .cover .badge {
+    display: inline-block;
+    background: #ef4444;
+    color: white;
+    font-weight: 800;
+    font-size: 13px;
+    letter-spacing: 0.08em;
+    padding: 6px 18px;
+    border-radius: 999px;
+    margin-bottom: 22px;
+  }
+  .cover h1 {
+    font-size: 34px;
+    margin: 0 0 6px 0;
+    color: #0f172a;
+  }
+  .cover h2 {
+    font-size: 16px;
+    font-weight: 500;
+    color: #475569;
+    margin: 0 0 30px 0;
+    max-width: 480px;
+  }
+  .cover .meta {
+    font-size: 11px;
+    color: #64748b;
+    margin-top: 40px;
+    line-height: 1.9;
+  }
+  .cover .stack-pills {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 8px;
+    max-width: 480px;
+    margin-top: 8px;
+  }
+  .pill {
+    background: #fff;
+    border: 1px solid #cbd5e1;
+    border-radius: 999px;
+    padding: 4px 12px;
+    font-size: 11px;
+    font-weight: 600;
+    color: #334155;
+  }
+  h1 { font-size: 22px; color: #0f172a; border-bottom: 3px solid #ef4444; padding-bottom: 6px; margin-top: 0; }
+  h2 { font-size: 16px; color: #0f172a; margin-top: 26px; border-left: 4px solid #10b981; padding-left: 10px; }
+  h3 { font-size: 13px; color: #334155; margin-top: 16px; margin-bottom: 6px; }
+  section { page-break-before: always; }
+  section:first-of-type { page-break-before: avoid; }
+  p { margin: 6px 0; }
+  ul, ol { margin: 6px 0; padding-left: 22px; }
+  li { margin: 3px 0; }
+  code {
+    background: #f1f5f9;
+    border-radius: 4px;
+    padding: 1px 5px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 11px;
+    color: #be123c;
+  }
+  pre {
+    background: #0f172a;
+    color: #e2e8f0;
+    border-radius: 8px;
+    padding: 12px 14px;
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    overflow-x: auto;
+    line-height: 1.5;
+  }
+  pre code { background: none; color: inherit; padding: 0; }
+  table {
+    width: 100%;
+    border-collapse: collapse;
+    margin: 10px 0;
+    font-size: 11px;
+  }
+  th, td {
+    border: 1px solid #e2e8f0;
+    padding: 6px 8px;
+    text-align: left;
+    vertical-align: top;
+  }
+  th { background: #f1f5f9; font-weight: 700; color: #0f172a; }
+  tr:nth-child(even) td { background: #f8fafc; }
+  .he { direction: rtl; unicode-bidi: isolate; font-weight: 600; color: #0f172a; }
+  .file { font-family: "SF Mono", Menlo, Consolas, monospace; color: #0369a1; font-weight: 600; }
+  .box {
+    border: 1px solid #e2e8f0;
+    border-radius: 8px;
+    padding: 10px 14px;
+    background: #f8fafc;
+    margin: 10px 0;
+  }
+  .box.warn { background: #fffbeb; border-color: #fde68a; }
+  .box.info { background: #eff6ff; border-color: #bfdbfe; }
+  .arch {
+    font-family: "SF Mono", Menlo, Consolas, monospace;
+    font-size: 10.5px;
+    background: #0f172a;
+    color: #a7f3d0;
+    border-radius: 8px;
+    padding: 14px;
+    line-height: 1.6;
+    white-space: pre;
+  }
+  .two-col { display: flex; gap: 16px; }
+  .two-col > div { flex: 1; }
+  .small { font-size: 10.5px; color: #64748b; }
+  .footer-note { font-size: 10px; color: #94a3b8; margin-top: 30px; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- COVER PAGE -->
+<div class="cover">
+  <div class="badge">HACKATHON 2026 PROJECT</div>
+  <h1>Emergency Response</h1>
+  <h2><span class="he">עזרה ראשונה</span> — A mobile-first, Hebrew (RTL) first-aid training app with a local, offline AI emergency assistant.</h2>
+  <div class="stack-pills">
+    <span class="pill">React 18 + TypeScript</span>
+    <span class="pill">Vite</span>
+    <span class="pill">Tailwind CSS</span>
+    <span class="pill">FastAPI (Python)</span>
+    <span class="pill">LangChain + Chroma</span>
+    <span class="pill">Ollama (local LLM)</span>
+    <span class="pill">faster-whisper (STT)</span>
+  </div>
+  <div class="meta">
+    Project Summary &amp; Codebase Walkthrough — prepared for hackathon judges<br/>
+    Repository: matanmiller/Hackathon2026 &nbsp;·&nbsp; Generated 2026-06-12
+  </div>
+</div>
+
+<!-- 1. OVERVIEW -->
+<section>
+<h1>1. What is this project?</h1>
+<p>
+<strong>Emergency Response</strong> (internal package name <code>ezra-rishona-ai</code>, Hebrew: <span class="he">עזרה ראשונה</span> — "First Aid")
+is a mobile-first, single-page web app that teaches everyday people how to react in medical and civil emergencies, and gives them a
+local, privacy-friendly <strong>AI emergency assistant</strong> they can talk to (by text or voice) when they need step-by-step guidance in the moment.
+</p>
+<p>
+The entire UI is in <strong>Hebrew, right-to-left (RTL)</strong>, and designed to look and feel like a phone app — a single rounded
+"device frame" that fills the screen on mobile and centers itself on desktop.
+</p>
+
+<h2>The three tabs</h2>
+<table>
+  <tr><th>Tab</th><th>Hebrew label</th><th>Purpose</th></tr>
+  <tr><td><strong>Learn</strong></td><td class="he">למידה</td><td>Browse emergency categories → lessons → either a step-by-step illustrated walkthrough or a timed "real scenario" quiz.</td></tr>
+  <tr><td><strong>Quiz</strong></td><td class="he">בוחן מהיר</td><td>A short multiple-choice knowledge check covering all lessons, with a final score.</td></tr>
+  <tr><td><strong>AI Agent Chat</strong></td><td class="he">סוכן חירום</td><td>A chat interface (text + voice) backed by a local Python AI server that answers first-aid questions from a curated knowledge base.</td></tr>
+</table>
+
+<h2>The "elevator pitch" for judges</h2>
+<ul>
+  <li><strong>Real content, not placeholder text</strong> — lesson text and illustrations were extracted directly from real first-aid reference documents (Word/PDF) supplied for the hackathon.</li>
+  <li><strong>Designed like a real consumer app</strong> — RTL Hebrew UI, custom icon set, color-coded categories, animations, a rotating "did you know" medical quote on the home screen, and a pulsing "Call AI Agent" emergency button.</li>
+  <li><strong>Two learning modes</strong> — a guided illustrated walkthrough <em>and</em> a timed "what would you do?" scenario quiz with a countdown bar, simulating the pressure of a real emergency.</li>
+  <li><strong>AI runs 100% locally</strong> — no cloud API keys, no internet dependency, no data leaves the device. Uses Ollama for the LLM/embeddings and faster-whisper for speech-to-text, fully offline-capable.</li>
+  <li><strong>Voice-first accessibility</strong> — users can speak their emergency instead of typing, which matters when hands are busy helping a casualty.</li>
+</ul>
+</section>
+
+<!-- 2. TECH STACK -->
+<section>
+<h1>2. Technology Stack &amp; File Types</h1>
+
+<h2>Frontend</h2>
+<table>
+  <tr><th>Technology</th><th>Version</th><th>Role</th></tr>
+  <tr><td>TypeScript</td><td>5.4.5</td><td>Primary language for all app logic and components (strict typing via <span class="file">src/types.ts</span>)</td></tr>
+  <tr><td>React</td><td>18.3.1</td><td>UI framework — function components + hooks only (no class components, no Redux)</td></tr>
+  <tr><td>Vite</td><td>5.3.1</td><td>Dev server &amp; build tool — instant HMR, builds to <span class="file">dist/</span></td></tr>
+  <tr><td>Tailwind CSS</td><td>3.4.4</td><td>Utility-first styling, custom theme (colors, fonts, animations)</td></tr>
+  <tr><td>vite-plugin-mkcert</td><td>2.1.0</td><td>Generates a locally-trusted HTTPS certificate so the microphone API works over LAN (e.g. testing on a phone)</td></tr>
+</table>
+
+<h2>Backend ("ChatBotBackend")</h2>
+<table>
+  <tr><th>Technology</th><th>Role</th></tr>
+  <tr><td>Python 3.12</td><td>Backend language</td></tr>
+  <tr><td>FastAPI + Uvicorn</td><td>HTTP API server (runs at <code>http://127.0.0.1:8000</code>)</td></tr>
+  <tr><td>LangChain (community/core/chroma)</td><td>Orchestrates the Retrieval-Augmented-Generation (RAG) pipeline</td></tr>
+  <tr><td>Ollama (<code>OllamaEmbeddings</code> + <code>Ollama</code> LLM)</td><td>Local embedding model (<code>nomic-embed-text</code>) and local LLM (<code>qwen2.5:0.5b</code>) — both run entirely on-device</td></tr>
+  <tr><td>ChromaDB (via <code>langchain-chroma</code>)</td><td>In-memory vector store for semantic search over the first-aid knowledge base</td></tr>
+  <tr><td>faster-whisper</td><td>Local speech-to-text (Whisper "tiny" model), transcribes Hebrew voice recordings</td></tr>
+</table>
+
+<h2>File extensions used in this project</h2>
+<table>
+  <tr><th>Extension</th><th>What it's for</th><th>Examples</th></tr>
+  <tr><td><code>.tsx</code></td><td>React components (TypeScript + JSX)</td><td><span class="file">App.tsx</span>, <span class="file">ChatTab.tsx</span>, <span class="file">LessonScenario.tsx</span></td></tr>
+  <tr><td><code>.ts</code></td><td>Non-visual TypeScript: types, data, services, hooks, config</td><td><span class="file">types.ts</span>, <span class="file">content.ts</span>, <span class="file">geminiService.ts</span></td></tr>
+  <tr><td><code>.css</code></td><td>Global styles + Tailwind directives</td><td><span class="file">src/index.css</span></td></tr>
+  <tr><td><code>.html</code></td><td>App entry HTML / output</td><td><span class="file">index.html</span></td></tr>
+  <tr><td><code>.json</code></td><td>Static data &amp; the AI knowledge base</td><td><span class="file">content.ts</span>'s data sources, <span class="file">quotes.ts</span> data, <span class="file">knowledge_base.json</span></td></tr>
+  <tr><td><code>.py</code></td><td>AI backend server</td><td><span class="file">ChatBotBackend/main.py</span></td></tr>
+  <tr><td><code>.txt</code></td><td>Python dependency list</td><td><span class="file">requirements.txt</span></td></tr>
+  <tr><td><code>.png</code> / <code>.jpeg</code> / <code>.svg</code></td><td>Lesson illustrations, scenario images, app icons</td><td><span class="file">src/assets/lessons/...</span>, <span class="file">icons_images/...</span></td></tr>
+  <tr><td><code>.docx</code> / <code>.pdf</code></td><td>Original source material the lesson content was extracted from</td><td><span class="file">categories/Medical_Conditions/*.docx/.pdf</span></td></tr>
+</table>
+</section>
+
+<!-- 3. ARCHITECTURE -->
+<section>
+<h1>3. High-Level Architecture</h1>
+<p>The app is split into two independent processes that talk to each other only over <code>localhost</code> HTTP:</p>
+
+<div class="arch">┌──────────────────────────────────────────────────────────────────┐
+│                    BROWSER  (phone or desktop)                     │
+│                                                                      │
+│   React SPA  —  served by Vite dev server (https://&lt;ip&gt;:5173)      │
+│                                                                      │
+│   ┌────────────┐   ┌────────────┐   ┌─────────────────────────┐    │
+│   │  Learn tab │   │  Quiz tab  │   │   AI Agent Chat tab      │    │
+│   │ (lessons,  │   │ (MCQ self  │   │  text + 🎤 voice input   │    │
+│   │ scenarios) │   │   test)    │   │                          │    │
+│   └────────────┘   └────────────┘   └───────────┬──────────────┘   │
+└────────────────────────────────────────────────┬─┴──────────────────┘
+                                                   │ fetch() — JSON / FormData
+                                                   ▼
+                          ┌────────────────────────────────────────────┐
+                          │   FastAPI server  (http://127.0.0.1:8000)   │
+                          │   ChatBotBackend/main.py                    │
+                          │                                              │
+                          │  POST /api/chat   ──▶ Chroma vector search  │
+                          │     (question)        over knowledge_base   │
+                          │                        .json (Ollama         │
+                          │                        embeddings)           │
+                          │                                              │
+                          │  POST /transcribe ──▶ faster-whisper (CPU)  │
+                          │     (audio blob)       Hebrew speech→text   │
+                          └────────────────────────────────────────────┘
+                                                   │
+                                                   ▼
+                          ┌────────────────────────────────────────────┐
+                          │   Ollama  (local LLM runtime, port 11434)   │
+                          │   models: nomic-embed-text, qwen2.5:0.5b    │
+                          └────────────────────────────────────────────┘
+</div>
+
+<div class="box info">
+<strong>Why this matters for judges:</strong> the AI assistant works without any internet connection or paid API key —
+everything (embeddings, vector search, the language model, and speech-to-text) runs on the laptop hosting the demo.
+</div>
+</section>
+
+<!-- 4. PROJECT STRUCTURE -->
+<section>
+<h1>4. Project Structure</h1>
+<pre><code>Hackathon2026/
+├── index.html                      Vite entry point
+├── package.json                    Frontend deps &amp; scripts (dev/build/preview)
+├── vite.config.ts                  Vite config: React plugin + mkcert HTTPS, host:true
+├── tailwind.config.js              Custom theme: Heebo font, "emergency" red, animations
+├── tsconfig*.json                  TypeScript project config (only "src" + vite.config.ts)
+│
+├── src/
+│   ├── main.tsx                    React root render (mounts &lt;App /&gt;)
+│   ├── App.tsx                     App shell: phone-frame layout, tab switcher
+│   ├── index.css                   Tailwind directives + global styles
+│   ├── types.ts                    All shared TypeScript types/interfaces
+│   │
+│   ├── components/
+│   │   ├── Header.tsx              Top bar with app icon + title
+│   │   ├── BottomNav.tsx           3-tab bottom navigation bar
+│   │   ├── LearnTab.tsx            Orchestrates the whole "Learn" flow (state machine)
+│   │   ├── CategoryCard.tsx        Square card for a category (medical/nature/...)
+│   │   ├── LessonSquareCard.tsx    Square card for a lesson, shows progress badge
+│   │   ├── LessonChoice.tsx        "Lesson or Quiz?" choice screen for a lesson
+│   │   ├── LessonPager.tsx         Paginated illustrated lesson walkthrough
+│   │   ├── LessonDetail.tsx        Fallback checklist view (lessons w/o pages)
+│   │   ├── LessonQuiz.tsx          Standard MCQ quiz for a lesson
+│   │   ├── LessonScenario.tsx      Timed "what do you do next?" scenario quiz
+│   │   ├── QuizTab.tsx             Global quick-quiz tab (all lessons)
+│   │   ├── QuizQuestionCard.tsx    Single MCQ card with explanation feedback
+│   │   ├── ChatTab.tsx             AI agent chat UI (messages, input, mic, send)
+│   │   ├── ChatBubble.tsx          Single chat message bubble (user/agent)
+│   │   ├── MicPermissionPrompt.tsx Inline help text for mic permissions
+│   │   ├── RotatingQuote.tsx       Rotating "famous medical quote" widget
+│   │   ├── accentStyles.ts         Color theme system (red/sky/amber/violet)
+│   │   ├── icons.tsx / icons.types.ts   Hand-rolled SVG icon components
+│   │   ├── categoryIcons.ts        Maps category id → icon component
+│   │   └── lessonIcons.ts          Maps lesson icon key → icon component
+│   │
+│   ├── data/
+│   │   ├── content.ts              Categories, lessons, lesson pages, scenario
+│   │   │                            quizzes, and quick-quiz questions (Hebrew)
+│   │   ├── quotes.ts                Loads/exports the rotating medical quotes
+│   │   └── famous_medical_quotes.json  100 famous medical quotes (source data)
+│   │
+│   ├── hooks/
+│   │   └── useVoiceRecorder.ts     Mic recording state machine (MediaRecorder API)
+│   │
+│   ├── services/
+│   │   ├── geminiService.ts        Calls AI backend /api/chat
+│   │   └── transcriptionService.ts Calls AI backend /transcribe
+│   │
+│   └── assets/
+│       ├── app-icon.png            App header icon
+│       └── lessons/choking|bleeding/...   Lesson + scenario illustrations
+│
+├── ChatBotBackend/
+│   ├── main.py                     FastAPI app: RAG chat endpoint + Whisper STT endpoint
+│   ├── knowledge_base.json         Curated first-aid facts (the AI's "brain")
+│   └── requirements.txt            Python dependencies
+│
+├── categories/Medical_Conditions/  Source .docx/.pdf reference documents
+├── icons_images/                   Extra raw images used for scenario quizzes
+└── famous_medical_quotes/          Source JSON for the rotating quotes
+</code></pre>
+</section>
+
+<!-- 5. FRONTEND DEEP DIVE -->
+<section>
+<h1>5. Frontend Walkthrough</h1>
+
+<h2>5.1 App Shell — <span class="file">App.tsx</span></h2>
+<p>
+The whole app renders inside one <code>&lt;div dir="rtl" lang="he"&gt;</code> "phone frame": full height on mobile,
+a centered rounded card (max-width <code>448px</code>, fixed height <code>850px</code>) with a shadow on desktop.
+It has three regions, top to bottom:
+</p>
+<ul>
+  <li><strong><span class="file">Header.tsx</span></strong> — app icon + "Emergency Response" title.</li>
+  <li><strong>Main content</strong> — one of <span class="file">LearnTab</span>, <span class="file">QuizTab</span>, or <span class="file">ChatTab</span>, swapped via a single <code>activeTab</code> state (<code>'learn' | 'quiz' | 'chat'</code>). The chat tab gets a non-scrolling flex layout (its own internal scroll area); the other tabs get a scrollable padded area.</li>
+  <li><strong><span class="file">BottomNav.tsx</span></strong> — 3 tab buttons: <span class="he">למידה</span> (Learn), <span class="he">בוחן מהיר</span> (Quiz), <span class="he">סוכן חירום</span> (AI Agent).</li>
+</ul>
+
+<h2>5.2 The Learn tab flow — <span class="file">LearnTab.tsx</span></h2>
+<p>
+This component is the heart of the app. It is a small state machine driven by 4 pieces of state:
+<code>selectedCategoryId</code>, <code>selectedLessonId</code>, <code>lessonView</code> (<code>'choice' | 'lesson' | 'quiz'</code>), and <code>completedSteps</code>.
+The screens render in this order:
+</p>
+<ol>
+  <li>
+    <strong>Home screen</strong> — a big pulsing red <strong>"Activate AI Emergency Agent"</strong> button (animated with a custom <code>pulse-strong</code> keyframe) that jumps straight to the AI Chat tab,
+    a 2×2 grid of <span class="file">CategoryCard</span>s (Medical Emergency, Natural Disasters, Accidents, War Emergency — each with its own accent color), a disclaimer that this is training only (call 101 in real emergencies), and the <span class="file">RotatingQuote</span> widget.
+  </li>
+  <li>
+    <strong>Category screen</strong> — a 2×2 grid of <span class="file">LessonSquareCard</span>s for the selected category, each showing a progress badge (<code>completed/total</code> steps). Categories with no lessons yet show a "coming soon" placeholder.
+  </li>
+  <li>
+    <strong><span class="file">LessonChoice.tsx</span></strong> — once a lesson is picked, the user chooses between <em>"Learn the lesson"</em> and <em>"Take the quiz"</em> (only shown if the lesson has quiz/scenario content).
+  </li>
+  <li>
+    <strong>Lesson content</strong> — either:
+    <ul>
+      <li><span class="file">LessonPager.tsx</span> — for lessons with a <code>pages</code> array (both current lessons): a swipeable/paginated walkthrough where each PDF-derived paragraph is rendered as its own illustrated "card" (image + text), grouped under a page header, with a progress bar and a completion callback that marks all steps done.</li>
+      <li><span class="file">LessonDetail.tsx</span> — fallback for lessons without <code>pages</code>: a simple checklist of <code>lesson.steps</code> the user can tick off manually.</li>
+    </ul>
+  </li>
+  <li>
+    <strong>Quiz content</strong> — either:
+    <ul>
+      <li><span class="file">LessonScenario.tsx</span> — for lessons with a <code>scenario</code> array (currently the bleeding lesson): a <strong>timed scenario quiz</strong>. Each round shows an image of the situation for a "reveal" phase (4s, with the prompt <span class="he">"מה הפעולה הבאה שיש לבצע?"</span> — "what's the next action?"), then switches to a "choice" phase with 3 possible actions and a <strong>6-second countdown progress bar</strong>; picking the correct one (or running out of time) shows feedback before moving to the next scenario.</li>
+      <li><span class="file">LessonQuiz.tsx</span> — standard multiple-choice quiz for lessons that only define <code>steps</code>/quick-quiz questions.</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>5.3 The Quiz tab — <span class="file">QuizTab.tsx</span> + <span class="file">QuizQuestionCard.tsx</span></h2>
+<p>
+A separate, top-level "quick quiz" (<span class="he">בוחן מהיר</span>) that iterates over <code>QUIZ_QUESTIONS</code> from <span class="file">content.ts</span> (one question per lesson today: choking and massive bleeding).
+Each <span class="file">QuizQuestionCard</span> lets the user pick an answer and immediately shows a correct/incorrect explanation.
+Once every question is answered, a summary screen shows the score with a restart button.
+</p>
+
+<h2>5.4 The AI Agent Chat tab — <span class="file">ChatTab.tsx</span></h2>
+<p>This is the most technically interesting tab — it combines a chat UI with local voice transcription:</p>
+<ul>
+  <li>The chat opens with a canned agent greeting: <span class="he">"שלום, אני סוכן החירום שלך. תאר לי את המצב בקצר ובצורה ברורה. מה קורה כעת?"</span> ("Hello, I'm your emergency agent. Briefly describe the situation. What's happening now?").</li>
+  <li>Messages are rendered as <span class="file">ChatBubble</span>s (user vs. agent styling), with an animated "typing" indicator (<span class="he">"הסוכן מקליד..."</span>) while waiting for a response.</li>
+  <li><strong>Sending a message</strong> calls <code>sendMessageToAgent()</code> in <span class="file">geminiService.ts</span>, which <code>POST</code>s <code>{ question }</code> as JSON to <code>http://127.0.0.1:8000/api/chat</code> and displays <code>data.answer</code>. If the backend is unreachable, it shows a friendly Hebrew error explaining the local AI server / Ollama needs to be running.</li>
+  <li><strong>Voice input</strong> (🎤 button) is powered by <span class="file">useVoiceRecorder.ts</span>: it requests microphone access via <code>getUserMedia</code>, records with <code>MediaRecorder</code> (preferring <code>audio/webm</code>), and on stop sends the blob to <code>transcribeAudio()</code> in <span class="file">transcriptionService.ts</span>, which <code>POST</code>s it as <code>FormData</code> to <code>http://127.0.0.1:8000/transcribe</code>. The returned text is placed into the input field — the user still presses send. The hook surfaces detailed Hebrew error messages for permission-denied, no microphone, microphone busy, and "insecure context" (HTTPS/localhost-only) cases.</li>
+  <li><span class="file">MicPermissionPrompt.tsx</span> shows a small inline hint about granting microphone permission.</li>
+</ul>
+
+<h2>5.5 Visual design system</h2>
+<ul>
+  <li><strong>Accent colors</strong> (<span class="file">accentStyles.ts</span>) — a single <code>ACCENT_STYLES</code> map keyed by <code>'red' | 'sky' | 'amber' | 'violet'</code>, each defining tile background, icon color, ring, badge, progress-bar fill, border, soft background, and button colors. Categories and lessons each carry an <code>accent</code> field, so the same components automatically re-theme per category (e.g. medical = red, nature = sky, accidents = amber, war = violet).</li>
+  <li><strong>Tailwind theme</strong> (<span class="file">tailwind.config.js</span>) — Heebo as the global sans-serif font (Hebrew-optimized), a custom <code>emergency</code> red color, and two custom keyframe animations: <code>pulse-strong</code> (1.8s, used on the AI agent button) and <code>fade-in-up</code> (0.25s, used for screen transitions and the rotating quote).</li>
+  <li><strong>Icons</strong> — all hand-rolled inline SVG React components in <span class="file">icons.tsx</span>, mapped per-category (<span class="file">categoryIcons.ts</span>) and per-lesson (<span class="file">lessonIcons.ts</span>).</li>
+</ul>
+</section>
+
+<!-- 6. DATA LAYER -->
+<section>
+<h1>6. Data &amp; Content Layer</h1>
+
+<h2>6.1 Types — <span class="file">src/types.ts</span></h2>
+<p>One file defines every shape used across the app: <code>Category</code>, <code>Lesson</code> (with optional <code>pages</code> for the illustrated walkthrough and optional <code>scenario</code> for the timed scenario quiz), <code>LessonPage</code>/<code>LessonPageItem</code> (a header plus a list of label/text/image items — i.e. the "cards"), <code>ScenarioPage</code>/<code>ScenarioOption</code> (an image + 3 options, exactly one marked <code>correct: true</code>), <code>QuizQuestion</code>, and chat types (<code>ChatMessage</code>, <code>ChatRole</code>).</p>
+
+<h2>6.2 Content — <span class="file">src/data/content.ts</span></h2>
+<p>This is the single source of truth for all lesson content. It currently defines:</p>
+<ul>
+  <li><strong>4 categories</strong>: <span class="he">חירום רפואי</span> (Medical Emergency, red), <span class="he">אסונות טבע</span> (Natural Disasters, sky), <span class="he">תאונות</span> (Accidents, amber), <span class="he">חירום מלחמה</span> (War Emergency, violet) — only "Medical Emergency" currently has lessons.</li>
+  <li><strong>2 lessons</strong>: <span class="he">חנק</span> (Choking — Heimlich maneuver) and <span class="he">דימום מאסיבי</span> (Massive Bleeding — tourniquet use), each with a full <code>pages</code> walkthrough and 3 <code>steps</code> for the checklist/progress badge.</li>
+  <li><strong>CHOKING_PAGES / BLEEDING_PAGES</strong> — each lesson's walkthrough is broken into multiple "header" sections (e.g. "Explanation of the problem", "How to treat it", "Applying a tourniquet", "Recording the critical time"), and each section contains one or more <em>cards</em> (an image + a paragraph of text), so every paragraph from the source PDF gets its own visual card.</li>
+  <li><strong>BLEEDING_SCENARIO</strong> — the 3-round timed scenario quiz: (1) a person bleeding from the leg → correct answer is to press hard on the wound with your knee, (2) pressure is being applied → correct answer is to call an ambulance (101), (3) bleeding continues → correct answer is to improvise a tourniquet from a belt and stick.</li>
+  <li><strong>QUIZ_QUESTIONS</strong> — the global quick-quiz questions (one per lesson today), each with a question, 3 options, the correct option id, and Hebrew explanation text for both correct and incorrect answers.</li>
+</ul>
+
+<h2>6.3 Where the content came from</h2>
+<div class="box">
+All lesson text and many illustrations were <strong>extracted directly from the real reference documents</strong> in
+<span class="file">categories/Medical_Conditions/</span> (<span class="file">Choking.docx</span>/<span class="file">.pdf</span> and
+<span class="file">Massive_Bleeding_Tourniquet_2.docx</span>/<span class="file">Massive_Bleeding_Tourniquet.pdf</span>).
+A <code>.docx</code> file is just a ZIP archive — its text lives in <code>word/document.xml</code> (inside <code>&lt;w:t&gt;</code> tags) and its embedded images are referenced via <code>r:embed="rIdN"</code>, cross-referenced against <code>word/_rels/document.xml.rels</code> to find the actual image files. This let the team pull out the exact wording and matching diagrams used by <span class="file">CHOKING_PAGES</span> and <span class="file">BLEEDING_PAGES</span> rather than writing placeholder copy.
+</div>
+
+<h2>6.4 Rotating quotes — <span class="file">src/data/quotes.ts</span> + <span class="file">famous_medical_quotes.json</span></h2>
+<p>
+A list of 100 famous medical quotes (sourced from <span class="file">famous_medical_quotes/famous_medical_quotes.json</span>) is shown one at a time on the home screen by <span class="file">RotatingQuote.tsx</span>. It picks a random starting quote, then advances to the next one every 60 seconds with a fade-in-up animation — a small touch of "liveliness" on an otherwise static home screen.
+</p>
+</section>
+
+<!-- 7. AI BACKEND DEEP DIVE -->
+<section>
+<h1>7. AI Backend — <span class="file">ChatBotBackend/main.py</span></h1>
+
+<h2>7.1 Startup sequence</h2>
+<ol>
+  <li>Loads <span class="file">knowledge_base.json</span> — a small curated list of Hebrew first-aid facts/instructions (e.g. choking and bleeding guidance) — and wraps each entry as a LangChain <code>Document</code>.</li>
+  <li>Initializes <strong>Ollama embeddings</strong> (<code>nomic-embed-text</code>) and builds an in-memory <strong>Chroma vector store</strong> from those documents.</li>
+  <li>Initializes a <strong>local LLM</strong> via Ollama (<code>qwen2.5:0.5b</code>, temperature 0, capped at 80 tokens) — a very small, fast model suitable for running on a laptop CPU.</li>
+  <li>Loads a local <strong>faster-whisper "tiny"</strong> model (CPU, int8) for Hebrew speech-to-text.</li>
+</ol>
+<p>If Ollama isn't running/installed, the embedding/vectorstore/LLM initialization is wrapped in a <code>try/except</code> that sets them all to <code>None</code> — the API still starts, but <code>/api/chat</code> responds with a friendly "AI system did not initialize correctly" message instead of crashing.</p>
+
+<h2>7.2 API Endpoints</h2>
+<table>
+  <tr><th>Endpoint</th><th>Method</th><th>Input</th><th>Behavior</th></tr>
+  <tr>
+    <td><code>/api/chat</code></td>
+    <td>POST</td>
+    <td>JSON <code>{ "question": "..." }</code></td>
+    <td>
+      Runs a <strong>semantic similarity search</strong> (<code>k=1</code>) against the Chroma vector store using the user's question.
+      If no good match is found (distance score above a threshold), it replies <span class="he">"אינני יודע את התשובה מתוך המידע שסופק"</span>
+      ("I don't know the answer from the information provided"). Otherwise it returns the matched knowledge-base fact directly as the answer
+      — i.e. today the system performs <strong>retrieval-only RAG</strong> (the small LLM is loaded and ready, but the current endpoint returns the
+      retrieved fact verbatim rather than rephrasing it through the LLM, keeping responses fast, deterministic, and grounded).
+    </td>
+  </tr>
+  <tr>
+    <td><code>/transcribe</code></td>
+    <td>POST</td>
+    <td><code>multipart/form-data</code> with an <code>audio</code> file field</td>
+    <td>Reads the uploaded audio bytes into memory, runs <code>faster-whisper</code> with <code>language="he"</code>, concatenates the resulting segments, and returns <code>{ "text": "..." }</code>.</td>
+  </tr>
+</table>
+
+<h2>7.3 The knowledge base</h2>
+<p><span class="file">knowledge_base.json</span> currently contains a handful of short, self-contained Hebrew first-aid statements covering choking/Heimlich and bleeding/tourniquet guidance — easy to extend by simply adding more strings to the JSON array, since each one becomes a separately-searchable vector.</p>
+
+<h2>7.4 Running the backend</h2>
+<pre><code># from ChatBotBackend/
+pip install -r requirements.txt
+
+# requires Ollama installed &amp; running, with these models pulled:
+#   ollama pull nomic-embed-text
+#   ollama pull qwen2.5:0.5b
+
+uvicorn main:app --reload --port 8000</code></pre>
+</section>
+
+<!-- 8. DEV TIMELINE -->
+<section>
+<h1>8. Development Timeline</h1>
+<p>The project was built collaboratively (2 contributors working in parallel, hence the merge commits) over the course of the hackathon day:</p>
+<table>
+  <tr><th>#</th><th>Commit</th><th>What happened</th></tr>
+  <tr><td>1</td><td><code>40053ec</code></td><td>First draft of the app — initial React/Vite/Tailwind scaffold and basic screens.</td></tr>
+  <tr><td>2</td><td><code>e875f0f</code></td><td>Added the first 2 lesson PDFs to seed the demo content.</td></tr>
+  <tr><td>3</td><td><code>2791cbd</code></td><td>Switched the design to a light theme.</td></tr>
+  <tr><td>4</td><td><code>02543c2</code></td><td>"With adding AI" — first version of the AI backend integration.</td></tr>
+  <tr><td>5</td><td><code>89b6856</code></td><td>Merge of the two parallel branches.</td></tr>
+  <tr><td>6</td><td><code>fe457b1</code></td><td>Added the 100 famous medical quotes (JSON) for the rotating quote widget.</td></tr>
+  <tr><td>7</td><td><code>9ea7b11</code></td><td>Updated the source files used for the informative lesson data.</td></tr>
+  <tr><td>8</td><td><code>316eb95</code> / <code>5ab2a88</code></td><td>"With working chatbot" — the AI backend reaches a working end-to-end state; merged in.</td></tr>
+  <tr><td>9</td><td><code>6bb8f6c</code> / <code>e3d9be9</code> / <code>7825da6</code></td><td>Added working voice recording (mic capture + Whisper transcription), merged in.</td></tr>
+  <tr><td>10</td><td><code>d5aafa1</code> / <code>1599b77</code></td><td>Major content update: bleeding lesson, lesson/quiz choice flow, scenario quizzes, app icon, rotating quotes — merged.</td></tr>
+  <tr><td>11</td><td><code>0b7cc60</code> / <code>bf62242</code></td><td>Refined the bleeding scenario quiz (timer, images), lesson timing, and content layout (per-paragraph cards) — merged.</td></tr>
+  <tr><td>12</td><td><code>76621b4</code></td><td>Final content polish — shortened the choking lesson title to <span class="he">"חנק"</span>.</td></tr>
+</table>
+<p class="small">Note: commit timestamps interleave because two people worked on separate branches (frontend/UI vs. AI backend/voice) and merged repeatedly throughout the day.</p>
+</section>
+
+<!-- 9. RUNNING IT -->
+<section>
+<h1>9. Running the Project Locally</h1>
+
+<h2>Frontend</h2>
+<pre><code>npm install
+npm run dev          # starts Vite on http://localhost:5173 (and your LAN IP, via host: true)
+npm run build         # type-checks (tsc) then builds to dist/
+npm run preview       # preview the production build</code></pre>
+
+<h2>AI Backend</h2>
+<pre><code>cd ChatBotBackend
+pip install -r requirements.txt
+uvicorn main:app --reload --port 8000</code></pre>
+
+<div class="box warn">
+<strong>Dependency note:</strong> the AI chat tab requires the FastAPI backend running on port 8000 <em>and</em> a local
+<a>Ollama</a> installation with the <code>nomic-embed-text</code> and <code>qwen2.5:0.5b</code> models pulled. Without Ollama,
+the backend still starts and the rest of the app (Learn + Quiz tabs) works fully — only the chat endpoint degrades to a
+graceful "AI system not initialized" message. Voice transcription (Whisper) does not depend on Ollama and works independently.
+</div>
+
+<div class="box info">
+<strong>HTTPS for mobile testing:</strong> microphone access (<code>getUserMedia</code>) is blocked by browsers on any
+non-<code>localhost</code> origin unless served over HTTPS. <span class="file">vite-plugin-mkcert</span> automatically
+generates a locally-trusted certificate (including for your LAN IP), so the dev server can be opened securely from a phone
+on the same Wi-Fi network for live demos.
+</div>
+</section>
+
+<!-- 10. TALKING POINTS -->
+<section>
+<h1>10. Key Talking Points for Judges</h1>
+<ul>
+  <li><strong>Real, sourced content</strong> — lesson text and diagrams come straight from professional first-aid documents, not invented copy, giving the training material genuine credibility.</li>
+  <li><strong>Two complementary learning modes</strong> — calm step-by-step study (illustrated pager) <em>and</em> high-pressure timed decision-making (scenario quiz with a 6-second countdown), mirroring how real emergencies actually feel.</li>
+  <li><strong>Fully local AI stack</strong> — RAG pipeline (LangChain + Chroma + Ollama) and speech-to-text (faster-whisper) both run on-device with zero cloud dependency, zero API cost, and full privacy — important for a tool that might handle sensitive medical conversations.</li>
+  <li><strong>Multimodal input</strong> — users can type <em>or</em> speak to the AI agent, which matters in a hands-busy emergency.</li>
+  <li><strong>Polished, accessible UI</strong> — native RTL Hebrew support, a cohesive color-coded design system across 4 emergency categories, custom icons, and subtle motion design (pulsing CTA, fade-in transitions, rotating quotes) that make the app feel production-ready rather than a prototype.</li>
+  <li><strong>Extensible architecture</strong> — adding a new emergency category just means adding entries to <span class="file">content.ts</span> (and optionally new images); adding new AI knowledge just means appending strings to <span class="file">knowledge_base.json</span> — no code changes required for either.</li>
+</ul>
+
+<div class="footer-note">Emergency Response — Hackathon 2026 — Project Summary</div>
+</section>
+
+</body>
+</html>

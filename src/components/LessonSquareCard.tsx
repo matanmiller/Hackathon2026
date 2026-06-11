@@ -19,7 +19,7 @@ export default function LessonSquareCard({ lesson, accent: accentColor, complete
     <button
       type="button"
       onClick={onSelect}
-      className="flex aspect-square flex-col items-center justify-center gap-2.5 rounded-2xl border border-slate-200 bg-white p-3 text-center shadow-sm shadow-slate-200/60 transition-transform active:scale-[0.97]"
+      className={`flex aspect-square flex-col items-center justify-center gap-2.5 rounded-2xl border border-slate-200 p-3 text-center shadow-sm shadow-slate-200/60 transition-transform active:scale-[0.97] ${accent.bgSoft}`}
     >
       <span className={`flex h-14 w-14 items-center justify-center rounded-2xl ring-1 ${accent.tile} ${accent.ring}`}>
         <Icon className={`h-7 w-7 ${accent.icon}`} />
