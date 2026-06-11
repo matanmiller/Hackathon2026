@@ -1,31 +1,34 @@
 /**
- * Mock emergency-agent response, used until a live model API is connected.
- * Replace the body of `sendMessageToAgent` with a real API call - the
- * function signature is the only contract the UI depends on.
- */
-const MOCK_AGENT_RESPONSE = `תודה על העדכון. להלן פעולות זמניות מומלצות עד הגעת צוות החירום:
-
-• שמרו על קור רוח ואל תזיזו את הנפגע, אלא אם קיימת סכנה מיידית
-• ודאו שדרכי הנשימה פנויות ונקיות מכל חפץ זר
-• אם קיים דימום - הפעילו לחץ ישיר וממושך על מקור הדימום
-• עקבו ברציפות אחר מצב ההכרה והנשימה של הנפגע
-• ודאו שהוזמן צוות חירום (101) ועדכנו אותו בכל פרט חדש
-
-המשיכו לתאר לי כל שינוי במצב ואכוון אתכם בהתאם לצעד הבא.`;
-
-const RESPONSE_DELAY_MS = 1000;
-
-/**
- * Sends a free-text emergency description to the AI agent and resolves with
- * its Hebrew, structured guidance. Currently mocked with a fixed delay and
- * canned response.
+ * שולח הודעת חירום למנוע ה-RAG האופליין שרץ מקומית על המחשב (FastAPI).
+ * מחזיר הנחיות מובנות ומותאמות בעברית על בסיס הידע שהוזן לו.
  */
 export async function sendMessageToAgent(message: string): Promise<string> {
-  await new Promise((resolve) => setTimeout(resolve, RESPONSE_DELAY_MS));
-
+  // בדיקת תקינות בסיסית לקלט ריק
   if (!message.trim()) {
     return 'לא קיבלתי תיאור של המצב. אנא תארו בקצרה מה קורה כעת כדי שאוכל לסייע.';
   }
 
-  return MOCK_AGENT_RESPONSE;
+  try {
+    // פנייה לשרת הפייתון המקומי שהרמנו בפורט 8000
+    const response = await fetch('http://127.0.0.1:8000/api/chat', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json',
+      },
+      body: JSON.stringify({ question: message.trim() }),
+    });
+
+    // בדיקה אם השרת החזיר קוד תקין (200 OK)
+    if (!response.ok) {
+      throw new Error(`שרת ה-AI החזיר סטטוס שגיאה: ${response.status}`);
+    }
+
+    const data = await response.json();
+    return data.answer; // מחזיר את התשובה האמיתית של המודל המקומי
+
+  } catch (error) {
+    console.error("Error connecting to local AI backend:", error);
+    // תשובת מילוט (Fallback) במקרה ששרת הפייתון או אולמה לא דולקים
+    return "שגיאה: לא ניתן להתחבר למנוע ה-AI המקומי. ודא ששרת הפייתון (main.py) רץ בטרמינל ושרת Ollama פעיל.";
+  }
 }
