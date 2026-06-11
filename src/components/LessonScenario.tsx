@@ -9,8 +9,8 @@ interface LessonScenarioProps {
   onBack: () => void;
 }
 
-const REVEAL_DELAY_MS = 2000;
-const CHOICE_SECONDS = 4;
+const REVEAL_DELAY_MS = 4000;
+const CHOICE_SECONDS = 6;
 
 type Phase = 'image' | 'choice';
 
@@ -148,14 +148,22 @@ export default function LessonScenario({ pages, accent: accentColor, onBack }: L
 
       {phase === 'image' ? (
         <div className="flex flex-1 flex-col items-center justify-center gap-2 text-center">
-          <p className="text-sm font-bold text-slate-700">מה הפעולה הנכונה כעת?</p>
+          <p className="text-sm font-bold text-slate-700">מה הפעולה הבאה שיש לבצע?</p>
           <p className="text-xs text-slate-400">האפשרויות יופיעו עוד רגע...</p>
         </div>
       ) : (
         <div className="flex flex-1 flex-col gap-3">
-          <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-400">
-            <ClockIcon className="h-4 w-4" />
-            <span>{secondsLeft} שניות לבחירה</span>
+          <div className="flex flex-col gap-1.5">
+            <div className="flex items-center justify-center gap-1.5 text-xs font-bold text-slate-400">
+              <ClockIcon className="h-4 w-4" />
+              <span>{secondsLeft} שניות לבחירה</span>
+            </div>
+            <div className="h-1.5 w-full overflow-hidden rounded-full bg-slate-100">
+              <div
+                className="h-full rounded-full bg-red-500 transition-[width] duration-1000 ease-linear"
+                style={{ width: `${(secondsLeft / CHOICE_SECONDS) * 100}%` }}
+              />
+            </div>
           </div>
 
           <div className="flex flex-col gap-2">
