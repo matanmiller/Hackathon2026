@@ -14,16 +14,16 @@ export default function ChatBubble({ message }: ChatBubbleProps) {
       <div
         className={`flex h-8 w-8 shrink-0 items-center justify-center rounded-full ring-1 ${
           isAgent
-            ? 'bg-emerald-500/15 text-emerald-400 ring-emerald-500/30'
-            : 'bg-slate-700 text-slate-300 ring-slate-600'
+            ? 'bg-emerald-50 text-emerald-600 ring-emerald-200'
+            : 'bg-slate-100 text-slate-500 ring-slate-200'
         }`}
       >
         {isAgent ? <BotIcon className="h-4 w-4" /> : <UserCircleIcon className="h-4 w-4" />}
       </div>
 
       <div
-        className={`max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm shadow-black/10 ${
-          isAgent ? 'rounded-br-md bg-slate-800 text-slate-100' : 'rounded-bl-md bg-emerald-600 text-white'
+        className={`max-w-[78%] rounded-2xl px-4 py-3 text-sm leading-relaxed shadow-sm shadow-slate-200/60 ${
+          isAgent ? 'rounded-br-md bg-slate-100 text-slate-900' : 'rounded-bl-md bg-emerald-600 text-white'
         }`}
       >
         {lines.map((line, idx) => {
@@ -32,7 +32,7 @@ export default function ChatBubble({ message }: ChatBubbleProps) {
             <p key={idx} className={idx > 0 ? 'mt-1.5' : ''}>
               {isBullet ? (
                 <span className="flex items-start gap-1.5">
-                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-400" />
+                  <span className="mt-1.5 h-1.5 w-1.5 shrink-0 rounded-full bg-emerald-500" />
                   <span>{line.replace('•', '').trim()}</span>
                 </span>
               ) : (

@@ -21,7 +21,7 @@ interface BottomNavProps {
 
 export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
   return (
-    <nav className="z-10 flex shrink-0 items-stretch gap-1 border-t border-slate-800/80 bg-slate-900/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur">
+    <nav className="z-10 flex shrink-0 items-stretch gap-1 border-t border-slate-200 bg-white/95 px-2 pb-[max(0.5rem,env(safe-area-inset-bottom))] pt-2 backdrop-blur">
       {NAV_ITEMS.map((item) => {
         const isActive = activeTab === item.id;
         const Icon = item.icon;
@@ -31,7 +31,7 @@ export default function BottomNav({ activeTab, onChange }: BottomNavProps) {
             type="button"
             onClick={() => onChange(item.id)}
             className={`flex flex-1 flex-col items-center gap-1 rounded-2xl py-2 transition-colors duration-150 ${
-              isActive ? 'bg-emerald-500/10 text-emerald-400' : 'text-slate-500 active:bg-slate-800/60'
+              isActive ? 'bg-emerald-50 text-emerald-600' : 'text-slate-400 active:bg-slate-100'
             }`}
           >
             <Icon className={`h-5 w-5 ${isActive ? 'stroke-[2.4]' : ''}`} />

@@ -21,12 +21,12 @@ export default function QuizTab() {
     <div className="flex flex-col gap-4 pb-2 animate-fade-in-up">
       <div className="space-y-1">
         <div className="flex items-center gap-2">
-          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30">
+          <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200">
             <ClipboardCheckIcon className="h-5 w-5" />
           </div>
-          <h2 className="text-base font-extrabold text-slate-100">בוחן מהיר</h2>
+          <h2 className="text-base font-extrabold text-slate-900">בוחן מהיר</h2>
         </div>
-        <p className="text-xs leading-relaxed text-slate-400">
+        <p className="text-xs leading-relaxed text-slate-500">
           בדקו את הידע שלכם בנושאי החנק והדימום שנלמדו בלשונית "למידה". בחרו תשובה לכל שאלה כדי לקבל משוב מיידי.
         </p>
       </div>
@@ -42,15 +42,15 @@ export default function QuizTab() {
       ))}
 
       {isComplete && (
-        <div className="animate-fade-in-up rounded-2xl border border-emerald-500/30 bg-emerald-500/5 p-4 text-center">
-          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30">
+        <div className="animate-fade-in-up rounded-2xl border border-emerald-200 bg-emerald-50 p-4 text-center">
+          <div className="mx-auto mb-2 flex h-12 w-12 items-center justify-center rounded-full bg-emerald-100 text-emerald-600 ring-1 ring-emerald-200">
             <CheckCircleIcon className="h-7 w-7" />
           </div>
-          <h3 className="text-sm font-extrabold text-slate-100">סיימתם את הבוחן!</h3>
-          <p className="mt-1 text-sm font-bold text-emerald-400">
+          <h3 className="text-sm font-extrabold text-slate-900">סיימתם את הבוחן!</h3>
+          <p className="mt-1 text-sm font-bold text-emerald-600">
             הציון שלכם: {score} מתוך {totalQuestions}
           </p>
-          <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-slate-400">
+          <p className="mx-auto mt-2 max-w-xs text-xs leading-relaxed text-slate-500">
             {score === totalQuestions
               ? 'כל הכבוד! שליטה מצוינת בעקרונות הבסיסיים של מתן עזרה ראשונה.'
               : 'כדאי לחזור על השיעורים הרלוונטיים בלשונית "למידה" כדי לחזק את הנושאים שטעיתם בהם.'}
@@ -58,7 +58,7 @@ export default function QuizTab() {
           <button
             type="button"
             onClick={handleRestart}
-            className="mt-3 rounded-xl bg-emerald-500/15 px-4 py-2 text-xs font-bold text-emerald-400 ring-1 ring-emerald-500/30 active:bg-emerald-500/25"
+            className="mt-3 rounded-xl bg-emerald-100 px-4 py-2 text-xs font-bold text-emerald-700 ring-1 ring-emerald-200 active:bg-emerald-200"
           >
             נסו שוב
           </button>

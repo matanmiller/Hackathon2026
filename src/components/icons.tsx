@@ -138,3 +138,34 @@ export const ShieldIcon = (props: IconProps) => (
     <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10Z" />
   </svg>
 );
+
+export const MedicalKitIcon = (props: IconProps) => (
+  <svg {...base} {...props}>
+    <rect x="3" y="7" width="18" height="13" rx="2" />
+    <path d="M9 7V5a2 2 0 0 1 2-2h2a2 2 0 0 1 2 2v2" />
+    <path d="M12 11v6M9 14h6" />
+  </svg>
+);
+
+export const StormIcon = (props: IconProps) => (
+  <svg {...base} {...props}>
+    <path d="M17.5 17a4.5 4.5 0 0 0-1-8.9A6 6 0 0 0 5 9.5 4 4 0 0 0 5.5 17h12Z" />
+    <path d="m13 11-2 4h3l-2 4" />
+  </svg>
+);
+
+export const CarIcon = (props: IconProps) => (
+  <svg {...base} {...props}>
+    <path d="M3 13l1.5-4.5A2 2 0 0 1 6.4 7h11.2a2 2 0 0 1 1.9 1.5L21 13" />
+    <path d="M3 13h18v4a1 1 0 0 1-1 1h-1a1 1 0 0 1-1-1v-1H6v1a1 1 0 0 1-1 1H4a1 1 0 0 1-1-1v-4Z" />
+    <circle cx="7.5" cy="17" r="1.5" />
+    <circle cx="16.5" cy="17" r="1.5" />
+  </svg>
+);
+
+export const ClockIcon = (props: IconProps) => (
+  <svg {...base} {...props}>
+    <circle cx="12" cy="12" r="10" />
+    <path d="M12 6v6l4 2" />
+  </svg>
+);

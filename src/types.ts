@@ -1,5 +1,16 @@
 export type TabId = 'learn' | 'quiz' | 'chat';
 
+export type CategoryId = 'medical' | 'nature' | 'accidents' | 'war';
+
+export type AccentColor = 'red' | 'sky' | 'amber' | 'violet';
+
+export interface Category {
+  id: CategoryId;
+  title: string;
+  description: string;
+  accent: AccentColor;
+}
+
 export interface LessonStep {
   id: string;
   title: string;
@@ -10,6 +21,7 @@ export type LessonIcon = 'choking' | 'bleeding';
 
 export interface Lesson {
   id: string;
+  category: CategoryId;
   title: string;
   subtitle: string;
   icon: LessonIcon;

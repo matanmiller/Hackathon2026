@@ -13,12 +13,12 @@ export default function QuizQuestionCard({ question, index, selectedOptionId, on
   const isCorrect = selectedOptionId === question.correctOptionId;
 
   return (
-    <div className="rounded-2xl border border-slate-800 bg-slate-900/60 p-4 shadow-sm shadow-black/10">
+    <div className="rounded-2xl border border-slate-200 bg-white p-4 shadow-sm shadow-slate-200/60">
       <div className="mb-3 flex items-start gap-2.5">
-        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-xs font-extrabold text-emerald-400 ring-1 ring-emerald-500/30">
+        <span className="mt-0.5 flex h-6 w-6 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-xs font-extrabold text-emerald-600 ring-1 ring-emerald-200">
           {index}
         </span>
-        <h3 className="text-sm font-bold leading-relaxed text-slate-100">{question.question}</h3>
+        <h3 className="text-sm font-bold leading-relaxed text-slate-900">{question.question}</h3>
       </div>
 
       <div className="space-y-2">
@@ -26,16 +26,16 @@ export default function QuizQuestionCard({ question, index, selectedOptionId, on
           const isSelected = selectedOptionId === option.id;
           const isCorrectOption = option.id === question.correctOptionId;
 
-          let stateClasses = 'border-slate-800 bg-slate-950/40 text-slate-200 active:bg-slate-800/60';
+          let stateClasses = 'border-slate-200 bg-slate-50 text-slate-700 active:bg-slate-100';
           if (isAnswered) {
             if (isSelected && isCorrectOption) {
-              stateClasses = 'border-emerald-500 bg-emerald-500/10 text-emerald-300';
+              stateClasses = 'border-emerald-500 bg-emerald-50 text-emerald-700';
             } else if (isSelected && !isCorrectOption) {
-              stateClasses = 'border-red-500 bg-red-500/10 text-red-300';
+              stateClasses = 'border-red-500 bg-red-50 text-red-700';
             } else if (isCorrectOption) {
-              stateClasses = 'border-emerald-500/40 bg-emerald-500/5 text-emerald-400';
+              stateClasses = 'border-emerald-300 bg-emerald-50/60 text-emerald-600';
             } else {
-              stateClasses = 'border-slate-800 bg-slate-950/20 text-slate-500';
+              stateClasses = 'border-slate-200 bg-slate-50/60 text-slate-400';
             }
           }
 
@@ -51,14 +51,14 @@ export default function QuizQuestionCard({ question, index, selectedOptionId, on
               {isAnswered && isSelected && (
                 <span className="shrink-0">
                   {isCorrectOption ? (
-                    <CheckCircleIcon className="h-5 w-5 text-emerald-400" />
+                    <CheckCircleIcon className="h-5 w-5 text-emerald-500" />
                   ) : (
-                    <XCircleIcon className="h-5 w-5 text-red-400" />
+                    <XCircleIcon className="h-5 w-5 text-red-500" />
                   )}
                 </span>
               )}
               {isAnswered && !isSelected && isCorrectOption && (
-                <CheckCircleIcon className="h-5 w-5 shrink-0 text-emerald-500/60" />
+                <CheckCircleIcon className="h-5 w-5 shrink-0 text-emerald-400" />
               )}
             </button>
           );
@@ -68,7 +68,7 @@ export default function QuizQuestionCard({ question, index, selectedOptionId, on
       {isAnswered && (
         <div
           className={`mt-3 flex items-start gap-2 rounded-xl border px-3 py-2.5 text-xs leading-relaxed animate-fade-in-up ${
-            isCorrect ? 'border-emerald-500/30 bg-emerald-500/5 text-emerald-300' : 'border-red-500/30 bg-red-500/5 text-red-300'
+            isCorrect ? 'border-emerald-200 bg-emerald-50 text-emerald-700' : 'border-red-200 bg-red-50 text-red-700'
           }`}
         >
           {isCorrect ? (

@@ -54,12 +54,12 @@ export default function ChatTab() {
 
           {isLoading && (
             <div className="flex items-end gap-2">
-              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-500/15 text-emerald-400 ring-1 ring-emerald-500/30">
+              <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-emerald-50 text-emerald-600 ring-1 ring-emerald-200">
                 <BotIcon className="h-4 w-4" />
               </div>
-              <div className="flex items-center gap-2 rounded-2xl rounded-br-md bg-slate-800 px-4 py-3">
-                <LoaderIcon className="h-4 w-4 animate-spin text-emerald-400" />
-                <span className="text-xs text-slate-400">הסוכן מקליד...</span>
+              <div className="flex items-center gap-2 rounded-2xl rounded-br-md bg-slate-100 px-4 py-3">
+                <LoaderIcon className="h-4 w-4 animate-spin text-emerald-500" />
+                <span className="text-xs text-slate-500">הסוכן מקליד...</span>
               </div>
             </div>
           )}
@@ -68,7 +68,7 @@ export default function ChatTab() {
 
       <form
         onSubmit={handleSubmit}
-        className="shrink-0 border-t border-slate-800 bg-slate-900/95 px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur"
+        className="shrink-0 border-t border-slate-200 bg-white/95 px-3 py-3 pb-[max(0.75rem,env(safe-area-inset-bottom))] backdrop-blur"
       >
         <div className="flex items-center gap-2">
           <input
@@ -76,12 +76,12 @@ export default function ChatTab() {
             value={input}
             onChange={(event) => setInput(event.target.value)}
             placeholder="הקלד הודעת חירום כאן..."
-            className="flex-1 rounded-full border border-slate-700 bg-slate-800/80 px-4 py-3 text-sm text-slate-100 placeholder:text-slate-500 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
+            className="flex-1 rounded-full border border-slate-200 bg-slate-50 px-4 py-3 text-sm text-slate-900 placeholder:text-slate-400 focus:border-emerald-500 focus:outline-none focus:ring-1 focus:ring-emerald-500"
           />
           <button
             type="submit"
             disabled={!input.trim() || isLoading}
-            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-slate-950 transition-opacity disabled:opacity-40"
+            className="flex h-11 w-11 shrink-0 items-center justify-center rounded-full bg-emerald-500 text-white transition-opacity disabled:opacity-40"
             aria-label="שלח הודעה"
           >
             <SendIcon className="h-5 w-5" />

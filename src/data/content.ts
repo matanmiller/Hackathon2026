@@ -1,8 +1,36 @@
-import type { Lesson, QuizQuestion } from '../types';
+import type { Category, Lesson, QuizQuestion } from '../types';
+
+export const CATEGORIES: Category[] = [
+  {
+    id: 'medical',
+    title: 'חירום רפואי',
+    description: 'זיהוי וטיפול ראשוני במצבי חירום רפואיים כגון חנק ודימומים',
+    accent: 'red',
+  },
+  {
+    id: 'nature',
+    title: 'אסונות טבע',
+    description: 'התנהגות נכונה בעת רעידות אדמה, שיטפונות ושריפות',
+    accent: 'sky',
+  },
+  {
+    id: 'accidents',
+    title: 'תאונות',
+    description: 'התמודדות ראשונית עם תאונות דרכים ותאונות עבודה',
+    accent: 'amber',
+  },
+  {
+    id: 'war',
+    title: 'חירום מלחמה',
+    description: 'התנהלות נכונה בעת אזעקות, ירי ופעולות איבה',
+    accent: 'violet',
+  },
+];
 
 export const LESSONS: Lesson[] = [
   {
     id: 'choking',
+    category: 'medical',
     title: 'חנק (תמרון היימליך)',
     subtitle: 'זיהוי וטיפול בחסימת דרכי נשימה',
     icon: 'choking',
@@ -29,6 +57,7 @@ export const LESSONS: Lesson[] = [
   },
   {
     id: 'bleeding',
+    category: 'medical',
     title: 'דימום מאסיבי',
     subtitle: 'עצירת דימום חיצוני בגפיים',
     icon: 'bleeding',

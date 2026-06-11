@@ -11,7 +11,7 @@ body,
 body {
   font-family: 'Heebo', system-ui, sans-serif;
   -webkit-tap-highlight-color: transparent;
-  background-color: #020617;
+  background-color: #ffffff;
 }
 
 /* Hide scrollbars while keeping content scrollable */

@@ -11,11 +11,11 @@ function App() {
   const isChatTab = activeTab === 'chat';
 
   return (
-    <div className="flex h-[100dvh] w-full items-center justify-center bg-slate-950 sm:p-6">
+    <div className="flex h-[100dvh] w-full items-center justify-center bg-gradient-to-br from-sky-100 via-slate-50 to-emerald-100 sm:p-6">
       <div
         dir="rtl"
         lang="he"
-        className="flex h-full w-full max-w-md flex-col overflow-hidden bg-slate-950 text-slate-100 sm:h-[850px] sm:max-h-[calc(100dvh-3rem)] sm:rounded-[2.5rem] sm:border sm:border-slate-800 sm:shadow-2xl sm:shadow-black/50"
+        className="flex h-full w-full max-w-md flex-col overflow-hidden bg-gradient-to-b from-white via-white to-emerald-50/40 text-slate-900 sm:h-[850px] sm:max-h-[calc(100dvh-3rem)] sm:rounded-[2.5rem] sm:border sm:border-slate-200 sm:shadow-2xl sm:shadow-slate-300/50"
       >
         <Header />
 
